@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elian&Carlos Fundraiser</title>
+  <meta name="color-scheme" content="dark light"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    .gfm { background-image: linear-gradient(135deg, #10b981, #059669); }
+  </style>
+  <style>html { scroll-behavior: smooth; }</style>
+
+</head>
+<body class="bg-neutral-950 text-neutral-100">
+
+<header
+  class="relative overflow-hidden bg-top bg-no-repeat"
+  style="
+    background-image: url('./images/bg.png');
+    background-size: contain;          /* no crop */
+    aspect-ratio: 531 / 300;           /* keeps full image visible */
+  ">
+
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="absolute inset-0 flex items-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h1 id="title" class="text-3xl md:text-5xl font-extrabold mb-2">Carlos y Elian</h1>
+<p>Please allow me to introduce him; he’s a man of wealth and taste... but...</p>
+      <p id="subtitle" class="text-neutral-200 max-w-2xl"></p>
+<p>
+On 11 August, a wildfire in Tres Cantos (Madrid) destroyed the home that Carlos had built through years of effort. Carlos is a devoted father to Elian, who has severe autism due to MEF2C syndrome, and they urgently need a safe, adapted place to live. Donations will fund emergency housing, essentials, and the first steps to rebuild so they can regain stability together.
+</p>
+<p>
+El 11 de agosto, un incendio en Tres Cantos (Madrid) destruyó el hogar que Carlos había construido durante años. Carlos es padre de Elian, quien tiene autismo severo debido al síndrome MEF2C, y necesitan con urgencia un lugar seguro y adaptado donde vivir. Las donaciones ayudarán a cubrir alojamiento de emergencia, artículos esenciales y los primeros pasos para reconstruir, para que ambos puedan recuperar la estabilidad cuanto antes. 
+</p>
+      <div class="mt-4 flex flex-wrap gap-3">
+<a class="gfm px-5 py-3 rounded-2xl font-semibold"
+   href="https://www.gofundme.com/f/ayuda-para-que-carlos-y-elian-recuperen-su-hogar"
+   target="_blank" rel="noopener">
+  Donate via GoFundMe
+</a>
+
+        <a href="#crypto"
+           class="px-5 py-3 rounded-2xl font-semibold bg-neutral-800 hover:bg-neutral-700">
+          Donate with Crypto
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  <main class="max-w-4xl mx-auto p-6 space-y-10">
+
+    <section id="crypto" class="rounded-3xl p-5 bg-neutral-900">
+      <h2 class="text-xl font-semibold mb-4">Donate with Crypto</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="rounded-2xl p-4 bg-neutral-800 space-y-2">
+          <h3 class="font-semibold">Bitcoin Address</h3>
+          <code id="btc" class="break-all text-sm"></code>
+          <div class="flex gap-2">
+            <button onclick="copy('btc', this)" class="px-3 py-1 rounded bg-neutral-700 hover:bg-neutral-600 text-sm">Copy</button>
+          </div>
+          <div id="btc-qr" class="mt-2"></div>
+<div class="mt-2 text-xs text-neutral-400">
+<code id="btc-payload" class="break-all"></code>
+</div>
+        </div>
+        <div class="rounded-2xl p-4 bg-neutral-800 space-y-2">
+          <h3 class="font-semibold">Lightning Network offer</h3>
+          <code id="ln" class="break-all text-sm"></code>
+          <div class="flex gap-2">
+            <button onclick="copy('ln', this)" class="px-3 py-1 rounded bg-neutral-700 hover:bg-neutral-600 text-sm">Copy</button>
+          </div>
+          <div id="ln-qr" class="mt-2"></div>
+<div class="mt-2 text-xs text-neutral-400">
+<code id="ln-payload" class="break-all"></code>
+</div>
+          <p class="text-xs text-neutral-400">wallets with BOLT12 support</p>
+        </div>
+        <div class="rounded-2xl p-4 bg-neutral-800 space-y-2">
+          <h3 class="font-semibold">Ethereum Address</h3>
+          <code id="eth" class="break-all text-sm"></code>
+          <div class="flex gap-2">
+            <button onclick="copy('eth', this)" class="px-3 py-1 rounded bg-neutral-700 hover:bg-neutral-600 text-sm">Copy</button>
+          </div>
+          <div id="eth-qr" class="mt-2"></div>
+<div class="mt-2 text-xs text-neutral-400">
+<code id="eth-payload" class="break-all"></code>
+</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="py-8 text-center text-xs text-neutral-500">
+    Thank you for your support.
+  </footer>
+
+<script src="./config.js"></script>
+<script>
+  async function loadContent(){
+    let content = {};
+    try {
+      const r = await fetch('./content.json');
+      content = await r.json();
+    } catch {}
+
+
+    // Addresses
+    const btc = window.CONFIG.BTC || 'bc1qexample...';
+    const ln  = window.CONFIG.LIGHTNING || 'name@getalby.com';
+    const eth = window.CONFIG.ETH || '0xYourEthAddress';
+
+    const lnPayload = 'lightning:' + ln;
+    const btcPayload = 'bitcoin:' + btc;
+    const ethPayload = 'ethereum:' + eth;
+
+
+    document.getElementById('btc').dataset.payload = btcPayload;
+    document.getElementById('ln').dataset.payload  = lnPayload;
+    document.getElementById('eth').dataset.payload = ethPayload;
+
+    document.getElementById('ln-payload').textContent = lnPayload;
+    document.getElementById('btc-payload').textContent = btcPayload;
+    document.getElementById('eth-payload').textContent = ethPayload;
+
+
+    new QRCode(document.getElementById('btc-qr'), { text: btcPayload, width: 250, height: 250 });
+    new QRCode(document.getElementById('ln-qr'),  { text: lnPayload, width: 250, height: 250 });
+    new QRCode(document.getElementById('eth-qr'), { text: ethPayload, width: 250, height: 250 });
+  }
+/*
+  function copy(id){
+    const el = document.getElementById(id);
+    navigator.clipboard.writeText(el.dataset.payload);
+  }
+*/
+
+async function copy(id, btn){
+  const el   = document.getElementById(id);
+  const text = el?.dataset?.payload || el?.textContent || '';
+  const ok   = await tryCopy(text);
+
+  // visual feedback
+  const prevTxt = btn.textContent;
+  btn.textContent = ok ? 'Copied!' : 'Copy failed';
+  btn.classList.remove('bg-neutral-800','hover:bg-neutral-700');
+  btn.classList.add(ok ? 'bg-green-700' : 'bg-red-700');
+  btn.disabled = true;
+
+  setTimeout(() => {
+    btn.textContent = prevTxt;
+    btn.classList.remove('bg-green-700','bg-red-700');
+    btn.classList.add('bg-neutral-800','hover:bg-neutral-700');
+    btn.disabled = false;
+  }, 1200);
+}
+
+async function tryCopy(text){
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    // fallback for non-secure contexts / old browsers
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand('copy'); document.body.removeChild(ta);
+    return ok;
+  }
+}
+
+
+
+  loadContent();
+</script>
+</body>
+</html>
