@@ -77,7 +77,7 @@
           </div>
           <div id="btc-qr" class="mt-2"></div>
           <div class="mt-2 text-xs text-neutral-400">
-            QR payload: <code id="btc-payload" class="break-all"></code>
+            <code id="btc-payload" class="break-all"></code>
           </div>
         </div>
 
@@ -90,7 +90,7 @@
           </div>
           <div id="ln-qr" class="mt-2"></div>
           <div class="mt-2 text-xs text-neutral-400">
-            QR payload: <code id="ln-payload" class="break-all"></code>
+            <code id="ln-payload" class="break-all"></code>
           </div>
           <p class="text-xs text-neutral-400">Works in wallets with BOLT12 or LNURL/Lightning Address support.</p>
         </div>
@@ -104,7 +104,7 @@
           </div>
           <div id="eth-qr" class="mt-2"></div>
           <div class="mt-2 text-xs text-neutral-400">
-            QR payload: <code id="eth-payload" class="break-all"></code>
+            <code id="eth-payload" class="break-all"></code>
           </div>
         </div>
       </div>
@@ -173,9 +173,9 @@
       const ethPayload = 'ethereum:' + eth;
 
       // Show display strings
-      document.getElementById('btc').textContent = btc;
-      document.getElementById('ln').textContent  = L.disp;
-      document.getElementById('eth').textContent = eth;
+      //document.getElementById('btc').textContent = btc;
+      //document.getElementById('ln').textContent  = L.disp;
+      //document.getElementById('eth').textContent = eth;
 
       // Set payloads for copy() and show them under QR
       document.getElementById('btc').dataset.payload = btcPayload;
